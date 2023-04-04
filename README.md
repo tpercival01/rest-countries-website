@@ -1,2 +1,2 @@
-# rest-countries-website
-Created with CodeSandbox
+# Rest Countries website
+
