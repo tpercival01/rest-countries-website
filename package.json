@@ -2,7 +2,7 @@
   "name": "rest-countries-website",
   "version": "1.0.0",
   "description": "Website displaying data fetched from the Rest Countries API",
-  "homepage": "https://tpercival01.github.io/rest-countries-website",
+  "homepage": ".",
   "dependencies": {
     "loader-utils": "3.2.1",
     "react": "18.2.0",
