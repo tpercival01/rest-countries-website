@@ -1,13 +1,12 @@
 {
-  "name": "react",
+  "name": "rest-countries-website",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "Website displaying data fetched from the Rest Countries API",
+  "homepage": "https://tpercival01.github.io/rest-countries-website",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "gh-pages": "5.0.0",
     "loader-utils": "3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -19,6 +18,8 @@
     "typescript": "4.1.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
