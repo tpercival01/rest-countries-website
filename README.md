@@ -13,7 +13,7 @@ This is a solution to the [Rest Countries API challenge on Frontend Mentor](http
 
 ### Screenshot
 
-![Desktop screenshot](./screenshot.png)
+![Desktop screenshot](/src/designs/screenshot.png)
 
 ### Links
 
