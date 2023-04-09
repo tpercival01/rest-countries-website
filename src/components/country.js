@@ -1,13 +1,16 @@
 const Country = (props) => {
   return (
-    <div className="country-display" id={props.country.name.common}>
+    <div
+      className={"country-display " + props.theme + "Other"}
+      id={props.country.name.common}
+    >
       <img
-        className="country-display-flag"
+        className='country-display-flag'
         src={props.country.flags.png}
-        alt="Flag"
+        alt='Flag'
       />
       <p>{props.country.name.common}</p>
-      <div className="country-display-details">
+      <div className='country-display-details'>
         <div>
           <p>Population:</p>
           <p>{props.country.population}</p>

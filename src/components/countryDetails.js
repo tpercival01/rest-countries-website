@@ -1,73 +1,66 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from "./navbar";
 
 const CountryDetails = () => {
-  const location = useLocation();
-  const { cca3 } = location.state;
-
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [CCA3, setCCA3] = useState(id);
+
+  const theme = useLocation().state.theme;
+  const [isDark, setDark] = useState(theme);
+
   const [country, setCountry] = useState();
-  const [border, hasBorder] = useState(false);
+  const [border, hasBorder] = useState(true);
   const [borderCountries, setBorderCountries] = useState([]);
   const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
-    const getCountryData = async () => {
-      const resp = await fetch(`https://restcountries.com/v3.1/alpha/${cca3}`);
-      const json = await resp.json();
-      setCountry(json[0]);
-    };
-    getCountryData();
-
-    /*fetch(`https://restcountries.com/v3.1/alpha/${cca3}`)
+    fetch(`https://restcountries.com/v3.1/alpha/${CCA3}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("logged", data[0]);
         setCountry(data[0]);
+        setLanguages(data[0].languages);
+        data[0].borders ? hasBorder(true) : hasBorder(false);
+        data[0].borders
+          ? setBorderCountries(data[0].borders)
+          : setBorderCountries([]);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
+  }, [CCA3, setCCA3]);
 
-    // checking if object has any border countries, prevent rendering an element if not
+  function handleBorder(e) {
+    setCCA3(e.target.id);
+  }
 
-    if (country.borders) {
-      hasBorder(true);
-      setBorderCountries(country.borders);
+  function handleBack() {
+    navigate("/", { state: isDark });
+  }
+
+  function handleTheme() {
+    if (isDark === "dark") {
+      setDark("light");
+    } else {
+      setDark("dark");
     }
-
-    // quick loop to turn languages object into array to map over in the render
-
-    let tempLang = [];
-    for (const item in country.languages) {
-      tempLang.push(country.languages[item]);
-    }
-    setLanguages(tempLang);*/
-
-    console.log("wtf", country);
-  }, []);
-
-  const handleBack = () => {
-    navigate("/");
-  };
-
-  const handleBorder = (e) => {
-    console.log(e.target.id);
-  };
+  }
 
   if (country) {
     return (
-      <div id="country-details">
-        <div id="top"></div>
-        <Navbar />
-        <div id="back-button" onClick={handleBack}>
+      <div id='country-details' className={isDark}>
+        <Navbar theme={isDark} handleTheme={handleTheme} />
+        <div id='back-button' className={isDark + "Other"} onClick={handleBack}>
           Back
         </div>
-        <div id="details-container">
-          <span id="details-page-flag">
-            <img src={country.flags.png} alt="country flag" />
+        <div id='details-container'>
+          <span id='details-page-flag'>
+            <img src={country.flags.png} alt='country flag' />
           </span>
-          <div id="details-page-details">
+          <div id='details-page-details'>
             <p>{country.name.common}</p>
-            <div id="details-left">
+            <div id='details-left'>
               <p>
                 <span>Native Name:</span>
                 {
@@ -93,10 +86,10 @@ const CountryDetails = () => {
                 {country.capital[0]}
               </p>
             </div>
-            <div id="details-right">
+            <div id='details-right'>
               <p>
                 <span>Top Level Domain:</span>
-                {country.tld[0]}
+                {!!country.tld ? country.tld[0] : " "}
               </p>
               <p>
                 <span>Currencies:</span>
@@ -104,22 +97,22 @@ const CountryDetails = () => {
               </p>
               <div>
                 <span>Languages:</span>
-                {languages.map((item, key) => (
-                  <p key={key} className="language">
-                    {item},
+                {Object.keys(languages).map((item, key) => (
+                  <p key={key} className='language'>
+                    {languages[item]},
                   </p>
                 ))}
               </div>
             </div>
             {border && (
-              <div id="border-countries">
+              <div id='border-countries'>
                 <p>Border Countries: </p>
                 {borderCountries.map((item, key) => (
                   <div
-                    className="border-country"
+                    className={"border-country " + isDark + "Other"}
+                    id={item}
                     key={key}
                     onClick={handleBorder}
-                    id={item}
                   >
                     {item}
                   </div>
@@ -128,7 +121,6 @@ const CountryDetails = () => {
             )}
           </div>
         </div>
-        <div id="bottom"></div>
       </div>
     );
   } else {
