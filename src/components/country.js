@@ -2,7 +2,7 @@ const Country = (props) => {
   return (
     <div
       className={"country-display " + props.theme + "Other"}
-      id={props.country.name.common}
+      id={props.country.cca3}
     >
       <img
         className='country-display-flag'
