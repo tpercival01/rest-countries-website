@@ -18,7 +18,7 @@ This is a solution to the [Rest Countries API challenge on Frontend Mentor](http
 ### Links
 
 - Solution URL: [Solution](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca/hub)
-- Live Site URL: [Live site](https://codesandbox.io/s/rest-countries-website-s7h4d6)
+- Live Site URL: [Live site](https://rest-countries-5fp2.onrender.com/)
 
 ## Author
 
